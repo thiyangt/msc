@@ -1,0 +1,592 @@
+---
+title: "Exercise 2.6 - 2.7"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 2.6 Filtering vectors based on conditions
+
+
+## 11)
+
+```{r, warning=FALSE, comment= NA}
+
+x <- c(80, 39, NA, 51, 51, 11, NA, NA, NA, 100, 80, 70)
+```
+
+### a).
+
+```{r, warning=FALSE, comment= NA}
+
+
+nonMissings <- x[!is.na(x)] # since is.na command gives us whether the value is a missing value or not 
+nonMissings
+```
+
+### b).
+
+```{r, warning=FALSE, comment= NA}
+
+
+missingsOdd <- x[(x %% 2) != 0] 
+missingsOdd
+```
+### c).
+
+```{r, warning=FALSE, comment= NA}
+
+odd <- x[!is.na(x) & (x %% 2) != 0] # extracting only the values which are not odd
+#ignoring missing values
+odd
+```
+### d).
+
+```{r, warning=FALSE, comment= NA}
+
+x <- c(80, 39, NA, 51, 51, 11, NA, NA, NA, 100, 80, 70)
+notIn <- x[!is.na(x) &!(x %in% 1:50)] # extracting only the values which not in the set 1:50
+notIn
+```
+\newpage
+
+# 2.7 Modify a vector
+
+## 12)
+
+```{r, warning=FALSE, comment= NA}
+
+age <- c(20, 30, 40, 41, 32, 32, 25,  NA, NA, -4, -6, 9999, 10000)
+```
+
+
+### a).
+```{r, warning=FALSE, comment= NA}
+
+a <- replace(age, which(age < 0), NA) # assigning NA to negative values
+a
+```
+
+
+### b).
+
+```{r, warning=FALSE, comment= NA}
+
+age <- c(20, 30, 40, 41, 32, 32, 25,  NA, NA, -4, -6, 9999, 10000)
+age [age < 0] <- 0 # assigning zero for all negative values
+
+valid <- age[age %in% 1:100] # extracting the valid responses
+
+mean(valid, rm.na=TRUE)
+
+```
+
+## 13)
+
+```{r, warning=FALSE, comment= NA}
+set.seed(17620212)
+b <- rnorm(100)
+b
+```
+
+### a).
+
+
+```{r, warning=FALSE, comment= NA}
+b[1:5] <- 1 # changing the first five values to 1
+b
+```
+
+
+### b).
+
+```{r, warning=FALSE, comment= NA}
+length(b) # length of the vector b
+```
+```{r, warning=FALSE, comment= NA}
+b[96:100] <- 0 # changing last five values to 0
+b
+```
+
+### c).
+
+```{r, warning=FALSE, comment= NA}
+b[b > 0.5] <- 1 # assigning 1 to values grater than 0.5
+b
+```
+
+```{r, warning=FALSE, comment= NA}
+b[b < 0.5] <- 0 # assigning 0 to values less than 0.5
+b
+```
+
+### d).
+
+
+```{r, warning=FALSE, comment= NA}
+b <- ifelse(b == 0, "MALE", "FEMALE")
+b
+```
+
+Or else this can be done by using the following method as well.
+
+```{r, warning=FALSE, comment= NA}
+# b <- replace(b, which(b==0), "MALE")
+# b <- replace(b, which(b==1), " FEMALE")
+
+```
+
+# Exercise 3
+
+
+# **3.2 Matrices**
+
+## **Question 1:**
+
+<br />
+<br />
+
+ **\textcolor{red}{Use the code below to create the vector uniform.values}**
+
+```{r, warning=FALSE, comment= NA}
+
+set.seed(21)
+uniform.values <- runif(50) # generating 50 random numbers from standard normal distribution
+uniform.values
+```
+<br />
+<br />
+
+ **\textcolor{red}{Arrange data in uniform.values according to the following formats:
+}**
+
+**\textcolor{red}{a). single row matrix}**
+
+```{r, warning=FALSE, comment= NA}
+
+SingleRow<-matrix(uniform.values, nrow = 1) # nrow = 1 since a single row
+SingleRow
+```
+
+\newpage
+
+**\textcolor{red}{b). single column matrix}**
+
+```{r, warning=FALSE, comment= NA}
+
+SingleColumn<-matrix(uniform.values, ncol = 1) # ncol = 1 since a single column
+SingleColumn
+```
+<br />
+<br />
+```{r, warning=FALSE, comment= NA}
+
+Column<-matrix(uniform.values) # default
+Column
+```
+<br />
+<br />
+
+**\textcolor{red}{c). matrix 5 × 10}**
+
+```{r, warning=FALSE, comment= NA}
+
+matrixCol1<-matrix(uniform.values, nrow = 5, ncol = 10) # Matrix is filled by column (default)
+matrixCol1
+
+# or else
+# matrixCol1<-matrix(uniform.values, nrow = 5, ncol = 10, byrow = FALSE)
+```
+
+<br />
+<br />
+
+```{r, warning=FALSE, comment= NA}
+
+matrixRow1<-matrix(uniform.values, nrow = 5, ncol = 10, byrow = TRUE) # Matrix is filled by row
+matrixRow1
+```
+
+<br />
+<br />
+
+**\textcolor{red}{d). matrix 10 × 5}**
+
+```{r, warning=FALSE, comment= NA}
+
+matrixCol2<-matrix(uniform.values, nrow = 10, ncol = 5) # Matrix is filled by column (default)
+matrixCol2
+
+# or else
+# matrixCol2<-matrix(uniform.values, nrow = 10, ncol = 5, byrow = FALSE)
+```
+<br />
+<br />
+
+
+```{r, warning=FALSE, comment= NA}
+
+matrixRow2<-matrix(uniform.values, nrow = 10, ncol = 5, byrow = TRUE) # Matrix is filled by row
+matrixRow2
+
+```
+
+<br />
+<br />
+
+## **Question 2:**
+
+**\textcolor{red}{Write the code to output the following matrix.}**
+
+
+```{r, warning=FALSE, comment= NA}
+rnames <- c("a", "b")
+matrix_with_names1 <- matrix(uniform.values, nrow=2, dimnames= list(rnames))
+# filled by column
+matrix_with_names1
+
+```
+
+
+```{r, warning=FALSE, comment= NA}
+rnames <- c("a", "b")
+matrix_with_names2 <- matrix(uniform.values, nrow=2, dimnames= list(rnames), byrow = TRUE) 
+# filled by raw
+matrix_with_names2
+
+
+```
+
+
+## Section 3.2 - Question 3
+
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+set.seed(1)
+values <- runif(70)
+m <- matrix(values, 10, 7)
+m
+```
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+image(m, useRaster=TRUE, axes=FALSE)
+```
+
+
+Look at this visualization carefully. The **x axis shows the number of rows** and the **y axis shows the number of columns**. This commands fills the colour according to the value of the cells in the matrix. The color intensity is high for the higher values and the color intensity is low for the lower values. 
+
+
+
+**image()** command starts to fill the colours from bottom left cell and finishes at top right cell. Therefore, if needed one can rotate the image of the matrix by 90 degrees clockwise direction in order to match with the original matrix.
+
+
+
+
+
+
+
+## Part a
+
+This is how we asign the values 0 and 1 to the values in the cell.
+
+
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+m[ m < 0.5] <- 0 #Assigning 0 to the values less than 0.5
+m[m >= 0.5] <- 1 #Assigning 1 to the values which are greater or equal to 0.5
+```
+
+
+The matrix will be as follows.
+
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+m
+```
+
+
+Then we can visualize it as shown below.
+
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+image(m, useRaster=TRUE, axes=FALSE)
+```
+
+
+We can see that for the cells with 1 a higher intense colour is filled and for the cells with 0 a lower intense colour is filled.
+
+
+## Part b
+
+
+We can use the sequence command to get the values in the matrix. And then we can fill those values by the columns in order to get the needed matrix. We can generate a sequence starting with 10 and finishing with 100 with increments of 10.
+
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+values<-seq(10,1000,by=10)
+ymat<-matrix(values,nrow = 10,ncol = 10)
+ymat
+```
+
+
+Now we need to convert all the values in the **even numbered indexes to 0**. Also, we need to convert all the values in the **odd numbered indexes to 1**. We convert the values in the matrix as shown below. 
+
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+
+ymat[(1:length(ymat))%%2==0]<-0 
+ymat[(1:length(ymat))%%2==1]<-1
+ymat
+
+```
+
+
+Using the length command we get the total number of elements is the matrix. In here it is 100. Then by using that we generate a sequence of numbers from 1 to 100. Then we extract the positions which are even and assign the values in those positions as zero. And we extract the positions which are odd and assign the values in those positions as 1.
+
+
+## Part c
+
+Visualizing the updated ymat.
+
+
+```{r,warning=FALSE,message=FALSE,comment=NA}
+
+image(ymat, useRaster=TRUE, axes=FALSE)
+
+```
+
+
+## NOTE
+
+```{r}
+ymat <- ymat/10
+ymat <- ymat %% 2
+image(ymat, useRaster=TRUE, axes=FALSE)
+```
+
+
+
+
+## 3.5
+
+
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# Method 1
+data(mtcars) # Loads specified data sets, or list the available data sets
+
+# Method 2
+data("mtcars") # Loads specified data sets, or list the available data sets
+
+is.data.frame(mtcars) # To check if it is a data frame
+
+str(mtcars) # Structure of the data set
+
+# The first or last parts of a vector, matrix, table, data frame or function 
+head(mtcars) # Default it shows 6 rows
+
+head(mtcars, 3) # To extract only first 3 rows 
+
+# The first or last parts of a vector, matrix, table, data frame or function 
+tail(mtcars) # Default it shows 6 rows 
+
+tail(mtcars, 3) # To extract only last 3 rows
+
+names(mtcars) # To get or set name of an object (i:e: vector, matrix, or data frame)
+
+# To retrieve or set the column names of a matrix-like object (i:e: matrix, or data frame)
+colnames(mtcars) 
+
+# To get or set the length of vectors (including lists) and factors, and of any other R object
+length(mtcars)  # To get number of rows in the data frame
+
+dim(mtcars) # To retrieve or set the dimension of an object
+
+nrow(mtcars) # To get the number of rows
+
+ncol(mtcars) # To get the number of columns
+```
+
+2. 
+
+
+3. 
+
+
+## 3. Write an R code to extract column names and row names.
+
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To retrieve or set the column names of a matrix-like object (i:e: matrix, or data frame)
+colnames(mtcars) 
+
+# To retrieve or set the row names of a matrix-like object (i:e: matrix, or data frame)
+rownames(mtcars) 
+```
+
+## 4. Extract and display the column corresponding to the number of cylinders.
+
+### Method 1
+```{r, warning=FALSE, message=FALSE, comment=NA}
+No_of_cylinders <- mtcars[,"cyl"] # To extract elements from specific column(s) by name
+No_of_cylinders # To display the column
+```
+
+### Method 2
+```{r, warning=FALSE, message=FALSE, comment=NA}
+No_of_cylinders <- mtcars[,2] # To extract elements from specific row(s) and/or column(s) by index
+No_of_cylinders # To display the column
+```
+
+### Method 3
+```{r, warning=FALSE, message=FALSE, comment=NA}
+No_of_cylinders <- mtcars$cyl # To extract elements from specific column
+No_of_cylinders # To display the column
+```
+
+### Method 4
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To attach the data frame to the R search path 
+attach(mtcars)
+# This means that the database is searched by R when evaluating a variable, 
+# so objects in the database can be accessed by simply giving their names.
+No_of_cylinders <- cyl # To extract elements from specific column
+No_of_cylinders
+```
+
+## 5. Extract and display the observations of cars with 4 cylinders AND 4 gears.
+
+### Method 1
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To return row index which the logical expression is TRUE
+id <- which(mtcars$cyl == 4 & mtcars$gear == 4)
+
+# To extract element from specific row
+mtcars[id,] 
+```
+
+### Method 2
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To return row index which the logical expression is TRUE
+id_new <- which(cyl == 4 & gear == 4)
+
+# To extract element from specific row
+mtcars[id_new,] 
+```
+
+### Method 3
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To return row index which the logical expression is TRUE
+id_n <- which(mtcars[,2] == 4 & mtcars[,1] == 4)
+
+# To extract element from specific row
+mtcars[id_n,] 
+```
+
+
+## 6. What is the maximum mpg?
+
+### Method 1
+```{r, warning=FALSE, message=FALSE, comment=NA}
+max(mtcars$mpg) # To get the the maximum value/ highest value from the vector/column
+
+is.vector(mtcars$mpg) # To check if it is a vector
+```
+
+### Method 2
+```{r, warning=FALSE, message=FALSE, comment=NA}
+max(mpg) # To get the the maximum value/ highest value from the vector/column
+
+is.vector(mpg) # To check if it is a vector
+```
+
+### Method 3
+```{r, warning=FALSE, message=FALSE, comment=NA}
+max(mtcars[,"mpg"]) # To get the the maximum value/ highest value from the vector/column
+
+is.vector(mtcars[,"mpg"]) # To check if it is a vector
+```
+
+### Method 4
+```{r, warning=FALSE, message=FALSE, comment=NA}
+max(mtcars[,1]) # To get the the maximum value/ highest value from the vector/column
+
+is.vector(mtcars[,1]) # To check if it is a vector
+```
+
+## 7. Which car has the maximum mpg?
+
+### Method 1
+```{r, warning=FALSE, message=FALSE, comment=NA}
+Name_of_car <- rownames(mtcars) # To extract row names of the data frame
+is.vector(Name_of_car) # To check if it is a vector 
+
+mtcars$car_name <- Name_of_car # Assign vector to a column of the data frame
+```
+
+### Method 1
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To return row index which has the highest value from the vector/column
+which.max(mtcars$mpg) 
+
+# To extract element from specific row and column
+mtcars[which.max(mtcars$mpg) ,"car_name"] 
+```
+
+### Method 2
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To return row index which has the highest value from the vector/column
+which.max(mpg) 
+
+# To extract element from specific row and column
+mtcars[which.max(mpg) ,"car_name"] 
+```
+
+### Method 3
+```{r, warning=FALSE, message=FALSE, comment=NA}
+# To return row index which has the highest value from the vector/column
+id_mpg <- which.max(mpg) 
+
+# To extract element from specific row and column
+mtcars[id_mpg ,"car_name"] 
+```
+
+### Method 4
+```{r, warning=FALSE, message=FALSE, comment=NA}
+max(mtcars$mpg) # To get the the maximum value/ highest value from the vector
+
+# If equal return as TRUE
+# If not return as FALSE
+# Check whether each value of the vector and return whether the value is equal to 
+# the maximum value or not
+mtcars$mpg == max(mtcars$mpg) 
+
+# To return row index which the logical expression is TRUE
+which(mtcars$mpg == max(mtcars$mpg)) 
+
+mtcars[which(mtcars$mpg == max(mtcars$mpg)),"car_name"] # To extract element from specific row
+```
+
+
+## 8. Compute suitable summary statistics for each column.
+```{r, warning=FALSE, message=FALSE, comment=NA}
+summary(mtcars) # Descriptive statistics for each field - (min, 1st Q, Median, Mean, 3rd Q, max)
+
+# Method 1
+summary(mtcars$mpg) # Descriptive statistics of a specific field
+
+# Method 2
+summary(mtcars[,1]) # Descriptive statistics of a specific field
+
+# Method 3
+summary(mpg) # Descriptive statistics of a specific field
+```
+
+
+
+
+
+
+
+
+
